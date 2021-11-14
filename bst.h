@@ -15,7 +15,8 @@ struct Node {
 };
 
 template <typename T>
-class BST {
+class BST 
+{
 
     // Outputs keys of the tree in sorted order.
     template <typename S>
