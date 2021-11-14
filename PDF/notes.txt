@@ -1,0 +1,56 @@
+TO BE DISCUSSED IN CLASS
+
+BST<T>::height(Node<T>* p)
+
+   What if p is null? What is the height of an empty tree?
+
+BST<T>::insert(T data)
+
+   After inserting a new node, do not forget to walk back to 
+   the root, adjusting heights as needed. DO NOT recalculate
+   the height of each node recursively!
+
+
+AvlTree<T>::insert(T data)
+
+   1. Insert data via BST<T>::insert.
+   2. Find parent of newly inserted node.
+   3. Walk to the root to find the first unbalanced node x.
+      a. Find trinode successor y of x.
+      b. Find trinode successor z of y.
+      c. Apply trinode_restructure to x, y, and z.
+      d. Update root.
+
+*          X                 Y
+*         / \              /   \
+*        Y   a            Z     X
+*       / \       ==>    / \   / \
+*      Z   b            c   d b   a
+*     / \
+*    c   d
+
+*
+*     X                Y
+*    / \             /   \
+*   a   Y    ==>    X     Z
+*      / \         / \   / \
+*     b   Z       a   b c   d
+*        / \
+*       c   d
+
+*       X                     Z
+*      / \                  /   \
+*     Y   a                Y     X
+*    / \          ==>     / \   / \
+*   b   Z                b   c d   a
+*      / \
+*     c   d
+ 
+*       X                     Z
+*      / \                  /   \
+*     a   y                X     Y
+*        / \      ==>     / \   / \
+*       Z   b            a   c d   b
+*      / \
+*     c   d
+  
