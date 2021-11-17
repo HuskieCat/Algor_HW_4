@@ -6,25 +6,22 @@ using namespace std;
 template <typename T>
 ostream& operator<<(ostream& out, const BST<T>& currentNode)
 {
-    print(out, currentNode);
-    return out << endl;
+    print(out, currentNode.root);
+    return out;
 }
 
 template <typename T>
 void print(ostream& out, Node<T>* currentNode)
 {
-    Node<T>* localLeft = currentNode->left;
-    Node<T>* localRight = currentNode->right;
+    if(currentNode->left != 0)
+        print(out, currentNode->left);
 
-    if(localLeft != 0)
-        print(out, localLeft);
+    out << currentNode->data << " ";
 
-    out << currentNode->data;
+    if(currentNode->right != 0)
+        print(out, currentNode->right);
 
-    if(localRight != 0)
-        print(out, localRight);
-
-    return out;
+    return;
 }
 
 template <typename T>
@@ -43,13 +40,14 @@ void BST<T>::insert(T data)
             localLeft = current->left;
             localRight = current->right;
 
-            //Left < Value
-            if (data < current->data)
+            if (data < current->data) //Travel Left
             {
                 if (localLeft == 0)
                 {
                     localLeft = new Node<T>(data);
+                    current->left = localLeft;
                     localLeft->parent = current;
+                    current = localLeft;
                     break;
                 }
                 else
@@ -58,12 +56,14 @@ void BST<T>::insert(T data)
                     continue;
                 }
             }
-            else if (data >= current->data)
+            else if (data >= current->data) //Travel Right
             {
                 if (localRight == 0)
                 {
                     localRight = new Node<T>(data);
+                    current->right = localRight;
                     localRight->parent = current;
+                    current = localRight;
                     break;
                 }
                 else
@@ -74,11 +74,22 @@ void BST<T>::insert(T data)
             }
         }
 
+        while(current->parent != 0) //Add
+        {
+            int parentHeight = current->parent->height;
+            int heightPlus = (current->height + 1);
+            if(heightPlus > parentHeight)
+            {
+                current->parent->height = heightPlus;
+            }
+            current = current->parent;
+        }
     }
     else
     {
         root = new Node<T>(data);
     }
+
     return;
 }
 
