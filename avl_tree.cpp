@@ -5,7 +5,7 @@ void AvlTree<T>::insert(T data)
 {
     BST<T>::insert(data);
 
-    Node<T>* current = this->root;
+    Node<T>* current = root;
     Node<T>* localParent = current->parent;
     Node<T>* localLeft = current->left;
     Node<T>* localRight = current->right;
@@ -69,26 +69,202 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* unbalancedNode,
                                          Node<T>* directChild, 
                                          Node<T>* childsChild)
 {
+    Node<T>* babysitter = 0;
     if(directChild->data < unbalancedNode->data) //Left
     {
         if(childsChild->data < directChild->data) //Left
         {
+            if(directChild->right != 0)
+                babysitter = directChild->right;
 
+            //Y
+            directChild->parent = unbalancedNode->parent;
+            directChild->right = unbalancedNode;
+
+            //X
+            unbalancedNode->parent = directChild;
+            unbalancedNode->left = babysitter;
+
+            //Heights
+            Node<T>* balanceHeights = unbalancedNode;
+            int counter = 0;
+            while(counter < 2)
+            {
+                if(balanceHeights->left != 0)
+                {
+                    if(balanceHeights->right != 0)
+                    {
+                        if(balanceHeights->left->height > balanceHeights->right->height)
+                            balanceHeights->height = balanceHeights->left->height + 1;
+                        else
+                            balanceHeights->height = balanceHeights->right->height + 1;
+                    }
+                    else
+                        balanceHeights->height = balanceHeights->left->height + 1;
+                }
+                else if (balanceHeights->right != 0)
+                    balanceHeights->height = balanceHeights->right->height + 1;
+                else
+                    balanceHeights->height = 0;
+
+                counter++;
+                if(counter == 1)
+                    balanceHeights = directChild;
+            }
+
+            return directChild;
         }
         else //Right
         {
+            if(childsChild->right != 0)
+                babysitter = childsChild->right;
 
+            //Z & Y
+            if(childsChild->left != 0)
+            {
+                directChild->right = childsChild->left;
+                childsChild->left->parent = directChild;
+            }
+            else
+                directChild->right = 0;
+
+            //Z
+            childsChild->parent = unbalancedNode->parent;
+            childsChild->left = directChild;
+            childsChild->right = unbalancedNode;
+
+            //X
+            unbalancedNode->parent = childsChild;
+            unbalancedNode->left = babysitter;
+
+            //Heights
+            Node<T>* balanceHeights = unbalancedNode;
+            int counter = 0;
+            while(counter < 3)
+            {
+                if(balanceHeights->left != 0)
+                {
+                    if(balanceHeights->right != 0)
+                    {
+                        if(balanceHeights->left->height > balanceHeights->right->height)
+                            balanceHeights->height = balanceHeights->left->height + 1;
+                        else
+                            balanceHeights->height = balanceHeights->right->height + 1;
+                    }
+                    else
+                        balanceHeights->height = balanceHeights->left->height + 1;
+                }
+                else if (balanceHeights->right != 0)
+                    balanceHeights->height = balanceHeights->right->height + 1;
+                else
+                    balanceHeights->height = 0;
+
+                counter++;
+                if(counter == 1)
+                    balanceHeights = directChild;
+                else if (counter == 2)
+                    balanceHeights = childsChild;
+            }
+            
+            return childsChild;
         }
     }
     else //Right
     {
         if(childsChild->data < directChild->data) //Left
         {
+            if(childsChild->left != 0)
+                babysitter = childsChild->left;
 
+            //Z & Y
+            if(childsChild->right != 0)
+            {
+                directChild->left = childsChild->right;
+                childsChild->right->parent = directChild;
+            }
+            else
+                directChild->left = 0;
+
+            //Z
+            childsChild->parent = unbalancedNode->parent;
+            childsChild->left = unbalancedNode;
+            childsChild->right = directChild;
+
+            //X
+            unbalancedNode->parent = childsChild;
+            unbalancedNode->right = babysitter;
+
+            //Heights
+            Node<T>* balanceHeights = unbalancedNode;
+            int counter = 0;
+            while(counter < 3)
+            {
+                if(balanceHeights->left != 0)
+                {
+                    if(balanceHeights->right != 0)
+                    {
+                        if(balanceHeights->left->height > balanceHeights->right->height)
+                            balanceHeights->height = balanceHeights->left->height + 1;
+                        else
+                            balanceHeights->height = balanceHeights->right->height + 1;
+                    }
+                    else
+                        balanceHeights->height = balanceHeights->left->height + 1;
+                }
+                else if (balanceHeights->right != 0)
+                    balanceHeights->height = balanceHeights->right->height + 1;
+                else
+                    balanceHeights->height = 0;
+
+                counter++;
+                if(counter == 1)
+                    balanceHeights = directChild;
+                else if (counter == 2)
+                    balanceHeights = childsChild;
+            }
+
+            return childsChild;
         }
         else //Right
         {
+            if(directChild->left != 0)
+                babysitter = directChild->left;
 
+            //Y
+            directChild->parent = unbalancedNode->parent;
+            directChild->left = unbalancedNode;
+
+            //X
+            unbalancedNode->parent = directChild;
+            unbalancedNode->right = babysitter;
+
+            Node<T>* balanceHeights = unbalancedNode;
+            int counter = 0;
+            while(counter < 2)
+            {
+                if(balanceHeights->left != 0)
+                {
+                    if(balanceHeights->right != 0)
+                    {
+                        if(balanceHeights->left->height > balanceHeights->right->height)
+                            balanceHeights->height = balanceHeights->left->height + 1;
+                        else
+                            balanceHeights->height = balanceHeights->right->height + 1;
+                    }
+                    else
+                        balanceHeights->height = balanceHeights->left->height + 1;
+                }
+                else if (balanceHeights->right != 0)
+                    balanceHeights->height = balanceHeights->right->height + 1;
+                else
+                    balanceHeights->height = 0;
+
+                counter++;
+                if(counter == 1)
+                    balanceHeights = directChild;
+            }
+
+            return directChild;
         }
     }
 
