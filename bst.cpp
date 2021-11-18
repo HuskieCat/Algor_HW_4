@@ -82,6 +82,8 @@ void BST<T>::insert(T data)
             {
                 current->parent->height = heightPlus;
             }
+            else if (heightPlus == parentHeight)
+                break;
             current = current->parent;
         }
     }
@@ -104,13 +106,12 @@ int BST<T>::height(Node<T>* nodePTR)
 template <typename T>
 void BST<T>::remove(Node<T>* nodePTR)
 {
-    Node<T>* localLeft = nodePTR->left;
-    Node<T>* localRight = nodePTR->right;
+    if(nodePTR->left != 0)
+        remove(nodePTR->left);
 
-    if(localLeft != 0)
-        remove(localLeft);
-    if (localRight != 0)
-        remove(localRight);
+    if (nodePTR->right != 0)
+        remove(nodePTR->right);
+
     delete[] nodePTR;
 
     return;
