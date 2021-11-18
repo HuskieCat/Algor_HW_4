@@ -49,8 +49,19 @@ void AvlTree<T>::insert(T data)
 template <typename T>
 Node<T>* AvlTree<T>::trinode_successor(Node<T>* current, T data)
 {
+    int leftHeight = 0;
+    int rightHeight = 0;
 
-    return Node<T>(-1);
+    if(current->left != 0)
+        leftHeight = current->left->height;
+
+    if(current->right != 0)
+        rightHeight = current->right->height;
+
+    if(leftHeight > rightHeight)
+        return current->left;
+    
+    return current->right;
 }
 
 template <typename T>
@@ -58,9 +69,27 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* unbalancedNode,
                                          Node<T>* directChild, 
                                          Node<T>* childsChild)
 {
-    if(directChild->data < unbalancedNode->data)
+    if(directChild->data < unbalancedNode->data) //Left
     {
-        if()
+        if(childsChild->data < directChild->data) //Left
+        {
+
+        }
+        else //Right
+        {
+
+        }
+    }
+    else //Right
+    {
+        if(childsChild->data < directChild->data) //Left
+        {
+
+        }
+        else //Right
+        {
+
+        }
     }
 
 
