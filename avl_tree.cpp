@@ -5,7 +5,7 @@ void AvlTree<T>::insert(T data)
 {
     BST<T>::insert(data);
 
-    Node<T>* current = BST<T>::root;
+    Node<T>* current = this->root;
     Node<T>* localParent = current->parent;
     Node<T>* localLeft = current->left;
     Node<T>* localRight = current->right;
@@ -31,7 +31,48 @@ void AvlTree<T>::insert(T data)
     }
 
     //Walk Tree
-    
+    while(localParent != 0)
+    {
+        if(unbalanced(current))
+        {
+            Node<T>* directChild = trinode_successor(current, -1);
+            Node<T>* childsChild = trinode_successor(directChild, -1);
+            current = trinode_restructure(current, directChild, childsChild);
+        }
+
+        current = current->parent;
+    }
 
     return;
+}
+
+template <typename T>
+Node<T>* AvlTree<T>::trinode_successor(Node<T>* current, T data)
+{
+
+    return Node<T>(-1);
+}
+
+template <typename T>
+Node<T>* AvlTree<T>::trinode_restructure(Node<T>* unbalancedNode, 
+                                         Node<T>* directChild, 
+                                         Node<T>* childsChild)
+{
+    if(directChild->data < unbalancedNode->data)
+    {
+        if()
+    }
+
+
+
+    return new Node<T>(-1);
+}
+
+template <typename T>
+bool AvlTree<T>::unbalanced(Node<T>* current)
+{
+    int difference = abs(current->left->height - current->right->height)
+    if(difference > 1)
+        return true;
+    return false;
 }
