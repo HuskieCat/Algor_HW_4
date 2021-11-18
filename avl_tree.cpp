@@ -100,7 +100,7 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* unbalancedNode,
 template <typename T>
 bool AvlTree<T>::unbalanced(Node<T>* current)
 {
-    int difference = abs(current->left->height - current->right->height)
+    int difference = abs(current->left->height - current->right->height);
     if(difference > 1)
         return true;
     return false;
