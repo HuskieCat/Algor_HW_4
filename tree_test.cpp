@@ -15,8 +15,9 @@ void test(BST<int>*, int[], int);
 
 int main() {
     //int keys[] = {80, 70, 60, 85, 10, 75, 50, 65, 66, 67, 68, 69};
-    int keys[] = {80, 70, 60, 85, 10, 75, 50, 65, 66};
-    const int n = 9;
+    //int keys[] = {80, 70, 60, 85, 10, 75, 50, 65, 66, 67, 68};
+    int keys[] = {70, 75, 74, 77, 76};
+    const int n = 5;
     
     cout << "Non-rebalancing BST:" << endl;
     test(new BST<int>(), keys, n);

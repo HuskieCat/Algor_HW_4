@@ -5,6 +5,8 @@
 template <typename T>
 void AvlTree<T>::insert(T data)
 {
+    cout << endl;
+
     BST<T>::insert(data);
 
     Node<T>* current = this->root;
@@ -19,7 +21,7 @@ void AvlTree<T>::insert(T data)
         localLeft = current->left;
         localRight = current->right;
 
-        /*cout << "C: " << current->data;
+        cout << "C: " << current->data;
         if(localParent != 0)
             cout << " P: " << localParent->data;
         if(localLeft != 0)
@@ -27,7 +29,7 @@ void AvlTree<T>::insert(T data)
         if(localRight != 0)
             cout << " R: " << localRight->data;
         cout << " H: " << current->height;
-        cout << endl;*/
+        cout << endl;
 
         if(data == current->data && localRight == 0)
         {
@@ -87,10 +89,16 @@ void AvlTree<T>::insert(T data)
             cout << "Root: " << current->data << endl;
             cout << "Height: " ;
             if(current->left != 0)
+            {
+                cout << "Left: " << current->left->data << " ";
                 cout << current->left->height;
-            else cout << " 0 :";
+            }
+            else cout << "Left 0 :";
             if(current->right != 0)
-                cout << ":" << current->right->height << endl;
+            {
+                cout << " : " << "Right: " << current->right->data << " " << current->right->height << endl;
+
+            }
             else cout << " 0 " << endl;
             cout << "Root height: " << current->height << endl;
 
@@ -119,7 +127,6 @@ void AvlTree<T>::insert(T data)
             {
                 current->height = 0;
             }
-
         }
     }
 
@@ -172,8 +179,16 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
 
             if(x->parent != 0)
             {
-                y->parent = x->parent;
-                y->parent->left = y;
+                if(x->parent->left == x)
+                {
+                    y->parent = x->parent;
+                    y->parent->left = y;
+                }
+                else
+                {
+                    y->parent = x->parent;
+                    y->parent->right = y;
+                }
             }
             else
             {
@@ -267,8 +282,16 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
 
             if(x->parent != 0)
             {
-                z->parent = x->parent;
-                z->parent->left = z;
+                if(x->parent->left == x)
+                {
+                    z->parent = x->parent;
+                    z->parent->left = z;
+                }
+                else
+                {
+                    z->parent = x->parent;
+                    z->parent->right = z;
+                }
             }
             else
                 z->parent = 0;
@@ -362,27 +385,41 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
         if(z->data < y->data) //Left
         {
             cout << "RIGHT - LEFT" << endl;
-            
-        }
-        else //Right
-        {
-            cout << "RIGHT - RIGHT" << endl;
-            if(y->left != 0)
-                babysitter = y->left;
+            if(z->left != 0)
+                babysitter = z->left;
 
             if(x->parent != 0)
             {
-                y->parent = x->parent;
-                y->parent->right = y;
+                if(x->parent->left == x)
+                {
+                    z->parent = x->parent;
+                    z->parent->left = z;
+                }
+                else
+                {
+                    z->parent = x->parent;
+                    z->parent->right = z;
+                }
             }
             else
-                y->parent = 0;
+                z->parent = 0;
 
-            x->parent = y;
-            x->right = babysitter;
+            x->parent = z;
+            z->left = x;
 
-            y->left = x;
+            if(z->right != 0)
+                y->left = z->right;
+            else
+                y->left = 0;
 
+            z->right = y;
+            y->parent = z;
+
+            if(babysitter != 0)
+                x->right = babysitter;
+            else
+                x->right = 0;
+            
             //Height
             int left = 0;
             int right = 0;
@@ -413,37 +450,163 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
                 
                 count++;
                 if(count == 1)
-                    babysitter = z;
-                if(count == 2)
                     babysitter = y;
+                if(count == 2)
+                    babysitter = z;
             }
 
             //X
-            /*if(x->parent != 0)  cout << "Xp: " << x->parent->data << endl;
+            cout << "X: " << x->data << endl;
+            if(x->parent != 0)  cout << "Xp: " << x->parent->data << endl;
             else cout << "Xp: " << "No Parent" << endl;
             if(x->left != 0)  cout << "Xl: " << x->left->data << endl;
             else cout << "Xl: " << "No left" << endl;
             if(x->right != 0)  cout << "Xr: " << x->right->data << endl;
             else cout << "Xr: " << "No right" << endl;
-            cout << "Xh: " << x->height << endl;*/
+            cout << "Xh: " << x->height << endl;
 
             //Y
-            /*if(y->parent != 0)  cout << "Yp: " << y->parent->data << endl;
+            cout << "Y: " << y->data << endl;
+            if(y->parent != 0)  cout << "Yp: " << y->parent->data << endl;
             else cout << "Yp: " << "No Parent" << endl;
             if(y->left != 0)  cout << "Yl: " << y->left->data << endl;
             else cout << "Yl: " << "No left" << endl;
             if(y->right != 0)  cout << "Yr: " << y->right->data << endl;
             else cout << "Yr: " << "No right" << endl;
-            cout << "Yh: " << y->height << endl;*/
+            cout << "Yh: " << y->height << endl;
 
             //Z
-            /*if(z->parent != 0)  cout << "Zp: " << z->parent->data << endl;
+            cout << "Z: " << z->data << endl;
+            if(z->parent != 0)  cout << "Zp: " << z->parent->data << endl;
             else cout << "Zp: " << "No Parent" << endl;
             if(z->left != 0)  cout << "Zl: " << z->left->data << endl;
             else cout << "Zl: " << "No left" << endl;
             if(z->right != 0)  cout << "Zr: " << z->right->data << endl;
             else cout << "Zr: " << "No right" << endl;
-            cout << "Zh: " << z->height << endl;*/
+            cout << "Zh: " << z->height << endl;
+
+            //Root
+            if(y->parent !=0)
+            {
+                cout << "R: " << y->parent->data << endl;
+                if(y->parent->left != 0) cout << "Rl: " << y->parent->left->data << endl;
+                else cout << "Rl: No Left" << endl;
+                if(y->parent->right != 0) cout << "Rr: " << y->parent->right->data << endl;
+                else cout << "Rr: No Right" << endl;
+
+            }
+
+            return z;
+        }
+        else //Right
+        {
+            cout << "RIGHT - RIGHT" << endl;
+            //Y child into storage
+            if(y->left != 0) 
+                babysitter = y->left;
+
+            //Parent of X is now Y's Parent
+            if(x->parent != 0)
+            {
+                if(x->parent->left == x)
+                {
+                    y->parent = x->parent; //Get parent
+                    y->parent->left = y; //Replace left child
+                }
+                else
+                {
+                    y->parent = x->parent; //Get parent
+                    y->parent->right = y; //Replace left child
+                }
+            }
+            else
+                y->parent = 0;
+
+            //Set x Parent to Y
+            x->parent = y;
+            y->left = x;
+
+            if(babysitter != 0)
+                x->right = babysitter; //Give X y's child
+            else
+                x->right = 0;
+
+            //Height
+            int left = 0;
+            int right = 0;
+            int count = 0;
+            babysitter = y;
+            while(count < 3)
+            {
+                if(babysitter->left != 0)
+                {
+                    left = babysitter->left->height;
+                    if(babysitter->right != 0)
+                    {
+                        right = babysitter->right->height;
+                        if(left > right)
+                            babysitter->height = left + 1;
+                        else
+                            babysitter->height = right + 1;
+                    }
+                    babysitter->height = left + 1;
+                }
+                else if (babysitter->right != 0)
+                {
+                    right = babysitter->right->height;
+                    babysitter->height = right + 1;
+                }
+                else
+                    babysitter->height = 0;
+                
+                count++;
+                if(count == 1)
+                    babysitter = x;
+                if(count == 2)
+                    babysitter = z;
+            }
+
+            //X
+            cout << "X: " << x->data << endl;
+            if(x->parent != 0)  cout << "Xp: " << x->parent->data << endl;
+            else cout << "Xp: " << "No Parent" << endl;
+            if(x->left != 0)  cout << "Xl: " << x->left->data << endl;
+            else cout << "Xl: " << "No left" << endl;
+            if(x->right != 0)  cout << "Xr: " << x->right->data << endl;
+            else cout << "Xr: " << "No right" << endl;
+            cout << "Xh: " << x->height << endl;
+
+            //Y
+            cout << "Y: " << y->data << endl;
+            if(y->parent != 0)  cout << "Yp: " << y->parent->data << endl;
+            else cout << "Yp: " << "No Parent" << endl;
+            if(y->left != 0)  cout << "Yl: " << y->left->data << endl;
+            else cout << "Yl: " << "No left" << endl;
+            if(y->right != 0)  cout << "Yr: " << y->right->data << endl;
+            else cout << "Yr: " << "No right" << endl;
+            cout << "Yh: " << y->height << endl;
+
+            //Z
+            cout << "Z: " << z->data << endl;
+            if(z->parent != 0)  cout << "Zp: " << z->parent->data << endl;
+            else cout << "Zp: " << "No Parent" << endl;
+            if(z->left != 0)  cout << "Zl: " << z->left->data << endl;
+            else cout << "Zl: " << "No left" << endl;
+            if(z->right != 0)  cout << "Zr: " << z->right->data << endl;
+            else cout << "Zr: " << "No right" << endl;
+            cout << "Zh: " << z->height << endl;
+
+            //Root
+            if(y->parent !=0)
+            {
+                cout << "R: " << y->parent->data << endl;
+                if(y->parent->left != 0) cout << "Rl: " << y->parent->left->data << endl;
+                else cout << "Rl: No Left" << endl;
+                if(y->parent->right != 0) cout << "Rr: " << y->parent->right->data << endl;
+                else cout << "Rr: No Right" << endl;
+
+            }
+
             return y;
         }
     }
@@ -465,7 +628,7 @@ bool AvlTree<T>::unbalanced(Node<T>* current)
         left = current->left->height;
         right = current->right->height;
 
-        //cout << "Checking: " << current->left->data << ":" << current->right->data << endl;
+        cout << "Checking: " << current->left->data << ":" << current->right->data << endl;
 
         if(left > right)
             difference = left - right;
