@@ -5,7 +5,7 @@ void AvlTree<T>::insert(T data)
 {
     BST<T>::insert(data);
 
-    Node<T>* current = root;
+    Node<T>* current = this->root;
     Node<T>* localParent = current->parent;
     Node<T>* localLeft = current->left;
     Node<T>* localRight = current->right;
@@ -17,26 +17,47 @@ void AvlTree<T>::insert(T data)
         localLeft = current->left;
         localRight = current->right;
 
-        if(data == current->data && localRight == 0)
-            current = localParent;
+        cout << " C: " << current->data;
+        if(localParent != 0)
+            cout << " P: " << localParent->data;
+        if(localLeft != 0)
+            cout << " L: " << localLeft->data;
+        if(localRight != 0)
+            cout << " R: " << localRight->data;
+        cout << endl;
 
-        if(data < localLeft->data)
+        if(data == current->data && localRight == 0)
+        {
+            current = localParent;
+            break;
+        }
+
+        if(localLeft != 0 && data < current->data)
         {
             current = localLeft;
         }
-        else if (data >= localRight->data)
+        else if (localRight != 0 && data > current->data)
         {
             current = localRight;
         }
     }
 
     //Walk Tree
-    while(localParent != 0)
+    while(current != 0)
     {
+        cout << "Checking Balance!" << endl;
+        cout << "Current: " << current->data << endl;
         if(unbalanced(current))
         {
+            cout << "They are unworthy" << endl;
+
+            cout << "X: " << current->data << endl;
             Node<T>* directChild = trinode_successor(current, -1);
+            cout << "Y: " << directChild->data << endl;
+
             Node<T>* childsChild = trinode_successor(directChild, -1);
+            cout << "Z: " << childsChild->data << endl;
+
             current = trinode_restructure(current, directChild, childsChild);
         }
 
@@ -53,218 +74,89 @@ Node<T>* AvlTree<T>::trinode_successor(Node<T>* current, T data)
     int rightHeight = 0;
 
     if(current->left != 0)
+    {
         leftHeight = current->left->height;
+        leftHeight++;
+    }
 
     if(current->right != 0)
+    {
         rightHeight = current->right->height;
+        leftHeight++;
+    }
 
     if(leftHeight > rightHeight)
+    {
         return current->left;
+    }
     
     return current->right;
 }
 
 template <typename T>
-Node<T>* AvlTree<T>::trinode_restructure(Node<T>* unbalancedNode, 
-                                         Node<T>* directChild, 
-                                         Node<T>* childsChild)
+Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x, 
+                                         Node<T>* y, 
+                                         Node<T>* z)
 {
     Node<T>* babysitter = 0;
-    if(directChild->data < unbalancedNode->data) //Left
+    if(y->data < x->data) //Left
     {
-        if(childsChild->data < directChild->data) //Left
+        if(z->data < y->data) //Left
         {
-            if(directChild->right != 0)
-                babysitter = directChild->right;
+            cout << "LEFT - LEFT" << endl;
+            if(y->right != 0)
+                babysitter = y->right;
 
-            //Y
-            directChild->parent = unbalancedNode->parent;
-            directChild->right = unbalancedNode;
+            if(x->parent != 0)
+                y->parent = x->parent;
+            else
+                y->parent = 0;
+            
+            y->right = x;
+            x->parent = y;
+            x->left = babysitter;
+            babysitter->parent = x;
 
             //X
-            unbalancedNode->parent = directChild;
-            unbalancedNode->left = babysitter;
+            if(x->parent != 0)  cout << "Xp: " << x->parent << endl;
+            else cout << "Xp: " << "No Parent" << endl;
+            if(x->left != 0)  cout << "Xl: " << x->left << endl;
+            else cout << "Xl: " << "No left" << endl;
+            if(x->right != 0)  cout << "Xr: " << x->right << endl;
+            else cout << "Xr: " << "No right" << endl;
 
-            //Heights
-            Node<T>* balanceHeights = unbalancedNode;
-            int counter = 0;
-            while(counter < 2)
-            {
-                if(balanceHeights->left != 0)
-                {
-                    if(balanceHeights->right != 0)
-                    {
-                        if(balanceHeights->left->height > balanceHeights->right->height)
-                            balanceHeights->height = balanceHeights->left->height + 1;
-                        else
-                            balanceHeights->height = balanceHeights->right->height + 1;
-                    }
-                    else
-                        balanceHeights->height = balanceHeights->left->height + 1;
-                }
-                else if (balanceHeights->right != 0)
-                    balanceHeights->height = balanceHeights->right->height + 1;
-                else
-                    balanceHeights->height = 0;
+            //Y
+            if(y->parent != 0)  cout << "Yp: " << x->parent << endl;
+            else cout << "Yp: " << "No Parent" << endl;
+            if(y->left != 0)  cout << "Yl: " << x->left << endl;
+            else cout << "Yl: " << "No left" << endl;
+            if(y->right != 0)  cout << "Yr: " << x->right << endl;
+            else cout << "Yr: " << "No right" << endl;
 
-                counter++;
-                if(counter == 1)
-                    balanceHeights = directChild;
-            }
-
-            return directChild;
+            //Z
+            if(z->parent != 0)  cout << "Zp: " << x->parent << endl;
+            else cout << "Zp: " << "No Parent" << endl;
+            if(z->left != 0)  cout << "Zl: " << x->left << endl;
+            else cout << "Zl: " << "No left" << endl;
+            if(z->right != 0)  cout << "Zr: " << x->right << endl;
+            else cout << "Zr: " << "No right" << endl;
         }
         else //Right
         {
-            if(childsChild->right != 0)
-                babysitter = childsChild->right;
-
-            //Z & Y
-            if(childsChild->left != 0)
-            {
-                directChild->right = childsChild->left;
-                childsChild->left->parent = directChild;
-            }
-            else
-                directChild->right = 0;
-
-            //Z
-            childsChild->parent = unbalancedNode->parent;
-            childsChild->left = directChild;
-            childsChild->right = unbalancedNode;
-
-            //X
-            unbalancedNode->parent = childsChild;
-            unbalancedNode->left = babysitter;
-
-            //Heights
-            Node<T>* balanceHeights = unbalancedNode;
-            int counter = 0;
-            while(counter < 3)
-            {
-                if(balanceHeights->left != 0)
-                {
-                    if(balanceHeights->right != 0)
-                    {
-                        if(balanceHeights->left->height > balanceHeights->right->height)
-                            balanceHeights->height = balanceHeights->left->height + 1;
-                        else
-                            balanceHeights->height = balanceHeights->right->height + 1;
-                    }
-                    else
-                        balanceHeights->height = balanceHeights->left->height + 1;
-                }
-                else if (balanceHeights->right != 0)
-                    balanceHeights->height = balanceHeights->right->height + 1;
-                else
-                    balanceHeights->height = 0;
-
-                counter++;
-                if(counter == 1)
-                    balanceHeights = directChild;
-                else if (counter == 2)
-                    balanceHeights = childsChild;
-            }
-            
-            return childsChild;
+            cout << "LEFT - RIGHT" << endl;
         }
     }
     else //Right
     {
-        if(childsChild->data < directChild->data) //Left
+        cout << "RIGHT - LEFT" << endl;
+        if(z->data < y->data) //Left
         {
-            if(childsChild->left != 0)
-                babysitter = childsChild->left;
-
-            //Z & Y
-            if(childsChild->right != 0)
-            {
-                directChild->left = childsChild->right;
-                childsChild->right->parent = directChild;
-            }
-            else
-                directChild->left = 0;
-
-            //Z
-            childsChild->parent = unbalancedNode->parent;
-            childsChild->left = unbalancedNode;
-            childsChild->right = directChild;
-
-            //X
-            unbalancedNode->parent = childsChild;
-            unbalancedNode->right = babysitter;
-
-            //Heights
-            Node<T>* balanceHeights = unbalancedNode;
-            int counter = 0;
-            while(counter < 3)
-            {
-                if(balanceHeights->left != 0)
-                {
-                    if(balanceHeights->right != 0)
-                    {
-                        if(balanceHeights->left->height > balanceHeights->right->height)
-                            balanceHeights->height = balanceHeights->left->height + 1;
-                        else
-                            balanceHeights->height = balanceHeights->right->height + 1;
-                    }
-                    else
-                        balanceHeights->height = balanceHeights->left->height + 1;
-                }
-                else if (balanceHeights->right != 0)
-                    balanceHeights->height = balanceHeights->right->height + 1;
-                else
-                    balanceHeights->height = 0;
-
-                counter++;
-                if(counter == 1)
-                    balanceHeights = directChild;
-                else if (counter == 2)
-                    balanceHeights = childsChild;
-            }
-
-            return childsChild;
+            
         }
         else //Right
         {
-            if(directChild->left != 0)
-                babysitter = directChild->left;
-
-            //Y
-            directChild->parent = unbalancedNode->parent;
-            directChild->left = unbalancedNode;
-
-            //X
-            unbalancedNode->parent = directChild;
-            unbalancedNode->right = babysitter;
-
-            Node<T>* balanceHeights = unbalancedNode;
-            int counter = 0;
-            while(counter < 2)
-            {
-                if(balanceHeights->left != 0)
-                {
-                    if(balanceHeights->right != 0)
-                    {
-                        if(balanceHeights->left->height > balanceHeights->right->height)
-                            balanceHeights->height = balanceHeights->left->height + 1;
-                        else
-                            balanceHeights->height = balanceHeights->right->height + 1;
-                    }
-                    else
-                        balanceHeights->height = balanceHeights->left->height + 1;
-                }
-                else if (balanceHeights->right != 0)
-                    balanceHeights->height = balanceHeights->right->height + 1;
-                else
-                    balanceHeights->height = 0;
-
-                counter++;
-                if(counter == 1)
-                    balanceHeights = directChild;
-            }
-
-            return directChild;
+            cout << "RIGHT - RIGHT" << endl;
+            
         }
     }
 
@@ -276,7 +168,24 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* unbalancedNode,
 template <typename T>
 bool AvlTree<T>::unbalanced(Node<T>* current)
 {
-    int difference = abs(current->left->height - current->right->height);
+    int left = 0;
+    int right = 0;
+    if(current->left != 0)
+    {
+        left = current->left->height;
+        left++;
+    }
+    if(current->right != 0)
+    {
+        right = current->right->height;
+        right++;
+    }
+
+    cout << "Left Height: " << left << endl;
+    cout << "Right Height: " << right << endl;
+
+    int difference = abs(left - right);
+    cout << "Diff: " << difference << endl;
     if(difference > 1)
         return true;
     return false;
