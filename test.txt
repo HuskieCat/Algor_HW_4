@@ -10,80 +10,117 @@ Inserting 65: 10 50 60 65 70 75 80 85 (height = 4)
 Inserting 66: 10 50 60 65 66 70 75 80 85 (height = 4)
 
 AVL tree:
-Inserting 80: C: 80
+Inserting 80: 
 80 (height = 0)
-Inserting 70: C: 80 L: 70
-C: 70 P: 80
-Height Check - 80L:0 R:-1
-Diff:0
+Inserting 70: 
+Height Check : 80 L:0 R:-1
+Diff:1
 70 80 (height = 1)
-Inserting 60: C: 80 L: 70
-C: 70 P: 80 L: 60
-C: 60 P: 70
-Height Check - 70L:0 R:-1
-Diff:0
-Root: 80
-Height Check - 80L:1 R:-1
-Diff:1
-60 70 80 (height = 2)
-Inserting 85: C: 80 L: 70 R: 85
-C: 85 P: 80
-Height Check - 80L:1 R:0
-Diff:1
-60 70 80 85 (height = 2)
-Inserting 10: C: 80 L: 70 R: 85
-C: 70 P: 80 L: 60
-C: 60 P: 70 L: 10
-C: 10 P: 60
-Height Check - 60L:0 R:-1
-Diff:0
-Root: 70
-Height Check - 70L:1 R:-1
+Inserting 60: 
+Height Check : 70 L:0 R:-1
 Diff:1
 Root: 80
-Height Check - 80L:2 R:0
+Height: 1 0 
+Height Check : 80 L:1 R:-1
 Diff:2
 They are unworthy
 X: 80
 Y: 70
 Z: 60
 LEFT - LEFT
-Current number: 70
-80 85 (height = 1)
-Inserting 75: C: 80 P: 70 L: 75 R: 85
-C: 75 P: 80
+Xp: 70
+Xl: No left
+Xr: No right
+Xh: 0
+Yp: No Parent
+Yl: 60
+Yr: 80
+Yh: 1
+Zp: 70
+Zl: No left
+Zr: No right
+Zh: 0
+Current after restructure: 70
+l1:60
+l2:80
+60 70 80 (height = 1)
+Inserting 85: 
+Height Check : 80 L:-1 R:0
+Diff:1
 Root: 70
+Height: 0:1
+Height Check : 70 L:0 R:1
+Diff:1
+60 70 80 85 (height = 2)
+Inserting 10: 
+Height Check : 60 L:0 R:-1
+Diff:1
+Root: 70
+Height: 1:1
+10 60 70 80 85 (height = 2)
+Inserting 75: 
+Root: 70
+Height: 1:1
 10 60 70 75 80 85 (height = 2)
-Inserting 50: C: 70 L: 60 R: 80
-C: 60 P: 70 L: 10
-C: 10 P: 60 R: 50
-C: 50 P: 10
-Height Check - 10L:-1 R:0
-Diff:0
+Inserting 50: 
+Height Check : 10 L:-1 R:0
+Diff:1
 Root: 60
-Height Check - 60L:1 R:-1
-Diff:1
+Height: 1 0 
+Height Check : 60 L:1 R:-1
+Diff:2
+They are unworthy
+X: 60
+Y: 10
+Z: 50
+LEFT - RIGHT
+Current after restructure: 50
+l1:10
+l2:60
 Root: 70
-Height Check - 70L:2 R:1
-Diff:1
+Height: 1:1
 10 50 60 70 75 80 85 (height = 3)
-Inserting 65: C: 70 L: 60 R: 80
-C: 60 P: 70 L: 10 R: 65
-C: 65 P: 60
-Height Check - 60L:1 R:0
+Inserting 65: 
+Height Check : 60 L:-1 R:0
+Diff:1
+Root: 50
+Height: 0:1
+Height Check : 50 L:0 R:1
 Diff:1
 Root: 70
-Height Check - 70L:2 R:1
+Height: 2:1
+Height Check : 70 L:2 R:1
 Diff:1
 10 50 60 65 70 75 80 85 (height = 3)
-Inserting 66: C: 70 L: 60 R: 80
-C: 60 P: 70 L: 10 R: 65
-C: 65 P: 60 R: 66
-C: 66 P: 65
-Height Check - 65L:-1 R:0
-Diff:0
-Root: 60
-Root: 70
-Height Check - 70L:2 R:1
+Inserting 66: 
+Height Check : 65 L:-1 R:0
 Diff:1
-10 50 60 65 66 70 75 80 85 (height = 3)
+Root: 60
+Height:  0 ::1
+Height Check : 60 L:-1 R:1
+Diff:2
+They are unworthy
+X: 60
+Y: 65
+Z: 66
+RIGHT - RIGHT
+Current after restructure: 65
+l1:60
+l2:66
+Root: 50
+Height: 0:1
+Height Check : 50 L:0 R:1
+Diff:1
+Root: 70
+Height: 3:1
+Height Check : 70 L:3 R:1
+Diff:2
+They are unworthy
+X: 70
+Y: 50
+Z: 65
+LEFT - RIGHT
+Current after restructure: 65
+l1:50
+l2:70
+10 50 60 65 66 70 75 80 85 (height = 2)

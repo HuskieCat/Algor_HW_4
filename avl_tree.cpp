@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cmath>
 #include "avl_tree.h"
 
 template <typename T>
@@ -67,6 +68,15 @@ void AvlTree<T>::insert(T data)
                 cout << "l1:" << current->left->data << endl;
             if(current->right != 0)
                 cout << "l2:" << current->right->data << endl;
+            cout << "Curr height: " << current->height << endl;
+            if(current->parent != 0 && current->parent->height <= current->height)
+            {
+                current->parent->height = current->height + 1;
+            }
+            if(current->parent != 0)
+            {
+                cout << "Curr height parent: " << current->parent->height << endl;
+            }
         }
 
         current = current->parent;
@@ -82,8 +92,40 @@ void AvlTree<T>::insert(T data)
             if(current->right != 0)
                 cout << ":" << current->right->height << endl;
             else cout << " 0 " << endl;
+            cout << "Root height: " << current->height << endl;
+
+            if(current->left != 0 && current->right != 0)
+            {
+                if(current->left->height > current->right->height)
+                {
+                    current->height = current->left->height + 1;
+                }
+                else if (current->left->height < current->right->height)
+                {
+                    current->height = current->right->height + 1;
+                }
+                else
+                    current->height = current->left->height + 1;
+            }
+            else if (current->left != 0)
+            {
+                current->height = current->left->height + 1;
+            }
+            else if (current->right != 0)
+            {
+                current->height = current->right->height + 1;
+            }
+            else
+            {
+                current->height = 0;
+            }
+
         }
     }
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
 
     return;
 }
@@ -187,6 +229,7 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
             
 
             //X
+            cout << "X: " << x->data << endl;
             if(x->parent != 0)  cout << "Xp: " << x->parent->data << endl;
             else cout << "Xp: " << "No Parent" << endl;
             if(x->left != 0)  cout << "Xl: " << x->left->data << endl;
@@ -195,8 +238,8 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
             else cout << "Xr: " << "No right" << endl;
             cout << "Xh: " << x->height << endl;
 
-
             //Y
+            cout << "Y: " << y->data << endl;
             if(y->parent != 0)  cout << "Yp: " << y->parent->data << endl;
             else cout << "Yp: " << "No Parent" << endl;
             if(y->left != 0)  cout << "Yl: " << y->left->data << endl;
@@ -206,6 +249,7 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
             cout << "Yh: " << y->height << endl;
 
             //Z
+            cout << "Z: " << z->data << endl;
             if(z->parent != 0)  cout << "Zp: " << z->parent->data << endl;
             else cout << "Zp: " << "No Parent" << endl;
             if(z->left != 0)  cout << "Zl: " << z->left->data << endl;
@@ -281,33 +325,36 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
             }
 
             //X
-            /*if(x->parent != 0)  cout << "Xp: " << x->parent->data << endl;
+            cout << "X: " << x->data << endl;
+            if(x->parent != 0)  cout << "Xp: " << x->parent->data << endl;
             else cout << "Xp: " << "No Parent" << endl;
             if(x->left != 0)  cout << "Xl: " << x->left->data << endl;
             else cout << "Xl: " << "No left" << endl;
             if(x->right != 0)  cout << "Xr: " << x->right->data << endl;
             else cout << "Xr: " << "No right" << endl;
-            cout << "Xh: " << x->height << endl;*/
-
+            cout << "Xh: " << x->height << endl;
 
             //Y
-            /*if(y->parent != 0)  cout << "Yp: " << y->parent->data << endl;
+            cout << "Y: " << y->data << endl;
+            if(y->parent != 0)  cout << "Yp: " << y->parent->data << endl;
             else cout << "Yp: " << "No Parent" << endl;
             if(y->left != 0)  cout << "Yl: " << y->left->data << endl;
             else cout << "Yl: " << "No left" << endl;
             if(y->right != 0)  cout << "Yr: " << y->right->data << endl;
             else cout << "Yr: " << "No right" << endl;
-            cout << "Yh: " << y->height << endl;*/
+            cout << "Yh: " << y->height << endl;
 
             //Z
-            /*if(z->parent != 0)  cout << "Zp: " << z->parent->data << endl;
+            cout << "Z: " << z->data << endl;
+            if(z->parent != 0)  cout << "Zp: " << z->parent->data << endl;
             else cout << "Zp: " << "No Parent" << endl;
             if(z->left != 0)  cout << "Zl: " << z->left->data << endl;
             else cout << "Zl: " << "No left" << endl;
             if(z->right != 0)  cout << "Zr: " << z->right->data << endl;
             else cout << "Zr: " << "No right" << endl;
             cout << "Zh: " << z->height << endl;
-            return z;*/
+
+            return z;
         }
     }
     else //Right
@@ -418,7 +465,7 @@ bool AvlTree<T>::unbalanced(Node<T>* current)
         left = current->left->height;
         right = current->right->height;
 
-        cout << "Checking: " << current->left->data << ":" << current->right->data << endl;
+        //cout << "Checking: " << current->left->data << ":" << current->right->data << endl;
 
         if(left > right)
             difference = left - right;
@@ -430,16 +477,16 @@ bool AvlTree<T>::unbalanced(Node<T>* current)
     else if(current->left != 0)
     {
         left = current->left->height;
-        difference = left - right;
+        difference = abs(left - right);
     }
     else if(current->right != 0)
     {
         right = current->right->height;
-        difference = right - left;
+        difference = abs(right - left);
     }
 
     difference = abs(difference);
-    cout << "Height Check : " << current->data << "L:" << left << " R:"<<right<<endl;
+    cout << "Height Check : " << current->data << " L:" << left << " R:"<<right<<endl;
     cout << "Diff:" << difference << endl;
 
     if(difference > 1)
