@@ -106,13 +106,13 @@ int BST<T>::height(Node<T>* nodePTR)
 template <typename T>
 void BST<T>::remove(Node<T>* nodePTR)
 {
-    if(nodePTR->left != 0)
-        remove(nodePTR->left);
+    if(nodePTR == 0)
+        return;
 
-    if (nodePTR->right != 0)
-        remove(nodePTR->right);
+    remove(nodePTR->left);
+    remove(nodePTR->right);
 
-    delete[] nodePTR;
+    delete nodePTR;
 
     return;
 }

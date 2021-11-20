@@ -1,0 +1,319 @@
+77 64 
+2^1 keys: 1 Current: 77
+ Height: 0
+Current: 77
+ Left: 64 Height: 1
+Current: 64
+ Parent: 77 Height: 0
+1
+30 63 89 66 
+2^2 keys: 3 Current: 30
+ Height: 0
+Current: 30
+ Right: 63 Height: 1
+Current: 63
+ Parent: 30 Height: 0
+Current: 30
+ Right: 63 Height: 2
+Current: 63
+ Parent: 30 Right: 89 Height: 1
+Current: 89
+ Parent: 63 Height: 0
+Current: 63
+ Left: 30 Right: 89 Height: 2
+Current: 89
+ Parent: 63 Left: 66 Height: 1
+Current: 66
+ Parent: 89 Height: 0
+2
+40 21 82 44 7 58 89 81 
+2^3 keys: 4 Current: 40
+ Height: 0
+Current: 40
+ Left: 21 Height: 1
+Current: 21
+ Parent: 40 Height: 0
+Current: 40
+ Left: 21 Right: 82 Height: 1
+Current: 82
+ Parent: 40 Height: 0
+Current: 40
+ Left: 21 Right: 82 Height: 2
+Current: 82
+ Parent: 40 Left: 44 Height: 1
+Current: 44
+ Parent: 82 Height: 0
+Current: 40
+ Left: 21 Right: 82 Height: 2
+Current: 21
+ Parent: 40 Left: 7 Height: 1
+Current: 7
+ Parent: 21 Height: 0
+Current: 40
+ Left: 21 Right: 82 Height: 3
+Current: 82
+ Parent: 40 Left: 44 Height: 2
+Current: 44
+ Parent: 82 Right: 58 Height: 1
+Current: 58
+ Parent: 44 Height: 0
+Current: 40
+ Left: 21 Right: 58 Height: 3
+Current: 58
+ Parent: 40 Left: 44 Right: 82 Height: 2
+Current: 82
+ Parent: 58 Right: 89 Height: 1
+Current: 89
+ Parent: 82 Height: 0
+Current: 40
+ Left: 21 Right: 58 Height: 3
+Current: 58
+ Parent: 40 Left: 44 Right: 82 Height: 2
+Current: 82
+ Parent: 58 Left: 81 Right: 89 Height: 1
+Current: 81
+ Parent: 82 Height: 0
+3
+22 12 36 46 7 6 72 78 51 10 46 38 91 32 99 35 
+2^4 keys: 6 Current: 22
+ Height: 0
+Current: 22
+ Left: 12 Height: 1
+Current: 12
+ Parent: 22 Height: 0
+Current: 22
+ Left: 12 Right: 36 Height: 1
+Current: 36
+ Parent: 22 Height: 0
+Current: 22
+ Left: 12 Right: 36 Height: 2
+Current: 36
+ Parent: 22 Right: 46 Height: 1
+Current: 46
+ Parent: 36 Height: 0
+Current: 22
+ Left: 12 Right: 36 Height: 2
+Current: 12
+ Parent: 22 Left: 7 Height: 1
+Current: 7
+ Parent: 12 Height: 0
+Current: 22
+ Left: 12 Right: 36 Height: 3
+Current: 12
+ Parent: 22 Left: 7 Height: 2
+Current: 7
+ Parent: 12 Left: 6 Height: 1
+Current: 6
+ Parent: 7 Height: 0
+Current: 22
+ Left: 7 Right: 36 Height: 3
+Current: 36
+ Parent: 22 Right: 46 Height: 2
+Current: 46
+ Parent: 36 Right: 72 Height: 1
+Current: 72
+ Parent: 46 Height: 0
+Current: 22
+ Left: 7 Right: 46 Height: 3
+Current: 46
+ Parent: 22 Left: 36 Right: 72 Height: 2
+Current: 72
+ Parent: 46 Right: 78 Height: 1
+Current: 78
+ Parent: 72 Height: 0
+Current: 22
+ Left: 7 Right: 46 Height: 3
+Current: 46
+ Parent: 22 Left: 36 Right: 72 Height: 2
+Current: 72
+ Parent: 46 Left: 51 Right: 78 Height: 1
+Current: 51
+ Parent: 72 Height: 0
+Current: 22
+ Left: 7 Right: 46 Height: 3
+Current: 7
+ Parent: 22 Left: 6 Right: 12 Height: 2
+Current: 12
+ Parent: 7 Left: 10 Height: 1
+Current: 10
+ Parent: 12 Height: 0
+Current: 22
+ Left: 7 Right: 46 Height: 4
+Current: 46
+ Parent: 22 Left: 36 Right: 72 Height: 3
+Current: 72
+ Parent: 46 Left: 51 Right: 78 Height: 2
+Current: 51
+ Parent: 72 Left: 46 Height: 1
+Current: 46
+ Parent: 51 Height: 0
+Current: 22
+ Left: 7 Right: 51 Height: 4
+Current: 51
+ Parent: 22 Left: 46 Right: 72 Height: 3
+Current: 46
+ Parent: 51 Left: 36 Right: 46 Height: 2
+Current: 36
+ Parent: 46 Right: 38 Height: 1
+Current: 38
+ Parent: 36 Height: 0
+Current: 22
+ Left: 7 Right: 51 Height: 4
+Current: 51
+ Parent: 22 Left: 46 Right: 72 Height: 3
+Current: 72
+ Parent: 51 Right: 78 Height: 2
+Current: 78
+ Parent: 72 Right: 91 Height: 1
+Current: 91
+ Parent: 78 Height: 0
+Current: 22
+ Left: 7 Right: 51 Height: 4
+Current: 51
+ Parent: 22 Left: 46 Right: 78 Height: 3
+Current: 46
+ Parent: 51 Left: 36 Right: 46 Height: 2
+Current: 36
+ Parent: 46 Left: 32 Right: 38 Height: 1
+Current: 32
+ Parent: 36 Height: 0
+Current: 22
+ Left: 7 Right: 51 Height: 4
+Current: 51
+ Parent: 22 Left: 46 Right: 78 Height: 3
+Current: 78
+ Parent: 51 Left: 72 Right: 91 Height: 2
+Current: 91
+ Parent: 78 Right: 99 Height: 1
+Current: 99
+ Parent: 91 Height: 0
+Current: 22
+ Left: 7 Right: 51 Height: 5
+Current: 51
+ Parent: 22 Left: 46 Right: 78 Height: 4
+Current: 46
+ Parent: 51 Left: 36 Right: 46 Height: 3
+Current: 36
+ Parent: 46 Left: 32 Right: 38 Height: 2
+Current: 32
+ Parent: 36 Right: 35 Height: 1
+Current: 35
+ Parent: 32 Height: 0
+4
+87 19 4 94 62 59 95 31 54 30 48 13 46 70 35 69 89 79 82 57 41 65 45 43 99 89 28 25 21 37 21 79 
+2^5 keys: 11 Current: 87
+ Height: 0
+Current: 87
+ Left: 19 Height: 1
+Current: 19
+ Parent: 87 Height: 0
+Current: 87
+ Left: 19 Height: 2
+Current: 19
+ Parent: 87 Left: 4 Height: 1
+Current: 4
+ Parent: 19 Height: 0
+Current: 19
+ Left: 4 Right: 87 Height: 2
+Current: 87
+ Parent: 19 Right: 94 Height: 1
+Current: 94
+ Parent: 87 Height: 0
+Current: 19
+ Left: 4 Right: 87 Height: 2
+Current: 87
+ Parent: 19 Left: 62 Right: 94 Height: 1
+Current: 62
+ Parent: 87 Height: 0
+Current: 19
+ Left: 4 Right: 87 Height: 3
+Current: 87
+ Parent: 19 Left: 62 Right: 94 Height: 2
+Current: 62
+ Parent: 87 Left: 59 Height: 1
+Current: 59
+ Parent: 62 Height: 0
+Current: 62
+ Left: 19 Right: 87 Height: 3
+Current: 87
+ Parent: 62 Right: 94 Height: 2
+Current: 94
+ Parent: 87 Right: 95 Height: 1
+Current: 95
+ Parent: 94 Height: 0
+Current: 62
+ Left: 19 Right: 94 Height: 2
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 1
+Current: 59
+ Parent: 62 Left: 31 Height: 1
+Current: 31
+ Parent: 59 Height: 0
+Current: 62
+ Left: 19 Right: 94 Height: 3
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 1
+Current: 59
+ Parent: 62 Left: 31 Height: 2
+Current: 31
+ Parent: 59 Right: 54 Height: 1
+Current: 54
+ Parent: 31 Height: 0
+Current: 62
+ Left: 19 Right: 54 Height: 3
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 1
+Current: 59
+ Parent: 54 Left: 30 Height: 1
+Current: 30
+ Parent: 59 Height: 0
+Current: 62
+ Left: 19 Right: 54 Height: 4
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 1
+Current: 59
+ Parent: 54 Left: 30 Height: 2
+Current: 30
+ Parent: 59 Right: 48 Height: 1
+Current: 48
+ Parent: 30 Height: 0
+Current: 62
+ Left: 19 Right: 54 Height: 3
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 2
+Current: 4
+ Parent: 19 Right: 13 Height: 1
+Current: 13
+ Parent: 4 Height: 0
+Current: 62
+ Left: 19 Right: 54 Height: 4
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 2
+Current: 59
+ Parent: 48 Left: 46 Height: 1
+Current: 46
+ Parent: 59 Height: 0
+Current: 62
+ Left: 19 Right: 59 Height: 3
+Current: 59
+ Parent: 62 Left: 48 Right: 54 Height: 2
+Current: 54
+ Parent: 59 Right: 48 Height: 3
+Current: 48
+ Parent: 59 Left: 30 Right: 46 Height: 1
+Current: 46
+ Parent: 59 Right: 70 Height: 1
+Current: 70
+ Parent: 46 Height: 0
+Current: 62
+ Left: 19 Right: 54 Height: 5
+Current: 19
+ Parent: 62 Left: 4 Right: 59 Height: 2
+Current: 59
+ Parent: 54 Left: 48 Right: 54 Height: 3
+Current: 48
+ Parent: 59 Left: 30 Right: 46 Height: 2
+Current: 30
+ Parent: 48 Right: 35 Height: 1
+Current: 35
+ Parent: 30 Height: 0
