@@ -2,13 +2,23 @@
 #include <cmath>
 #include "avl_tree.h"
 
+/*
+CPP of avl_tree for making AVL trees
+
+Known Issues: Chance of working with lists of numbers but can also fail: Reason (Unknown)
+
+Author: Bradley Henderson
+*/
+
+/*
+Inserts the node into the AVL and balances
+*/
 template <typename T>
 void AvlTree<T>::insert(T data)
 {
     BST<T>::insert(data);
 
-    //cout << "INSERTED: " << data << "---------------" << endl;
-
+    //Temporary variables to help locate the node
     Node<T>* current = this->root;
     Node<T>* localParent = current->parent;
     Node<T>* localLeft = current->left;
@@ -20,16 +30,6 @@ void AvlTree<T>::insert(T data)
         localParent = current->parent;
         localLeft = current->left;
         localRight = current->right;
-
-        /*cout << "Current: " << current->data << " ";
-        if(localParent != 0)
-            cout << "Parent: " << localParent->data << " ";
-        if(localLeft != 0)
-            cout << "Left: " << localLeft->data << " ";
-        if(localRight != 0)
-            cout << "Right: " << localRight->data << " ";
-        cout << " Height: " << current->height;
-        cout << endl;*/
 
         if(data == current->data && localRight == 0)
         {
@@ -47,7 +47,7 @@ void AvlTree<T>::insert(T data)
         }
     }
 
-    //Walk Tree
+    //Walk Tree and rebalance
     Node<T>* output = 0;
     while(current != 0)
     {
@@ -66,6 +66,7 @@ void AvlTree<T>::insert(T data)
 
         current = current->parent;
         
+        //Fix heights
         if(current != 0)
         {
             this->root = current;
@@ -101,6 +102,9 @@ void AvlTree<T>::insert(T data)
     return;
 }
 
+/*
+Gets the biggest child height of children if they exist
+*/
 template <typename T>
 Node<T>* AvlTree<T>::trinode_successor(Node<T>* current, T data)
 {
@@ -127,6 +131,10 @@ Node<T>* AvlTree<T>::trinode_successor(Node<T>* current, T data)
     return current->right;
 }
 
+
+/*
+Rotates the noted so they comply with the AVL standard
+*/
 template <typename T>
 Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x, 
                                          Node<T>* y, 
@@ -137,7 +145,6 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
     {
         if(z->data < y->data) //Left
         {
-            //cout << "LEFT - LEFT" << endl;
             if(y->right != 0) //Get Y's child
                 babysitter = y->right;
 
@@ -154,8 +161,6 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
                     x->parent->right = y; // Set x parent to Y
                     y->parent = x->parent; // Set y parent to x's parent
                 }
-                /*else
-                    cout << "There is no parent" << endl;*/
             }
             else
                 y->parent = 0;
@@ -171,7 +176,7 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
             else
                 x->left = 0;
 
-            //Height
+            //Height fixing
             int left = 0;
             int right = 0;
             int count = 0;
@@ -225,8 +230,6 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
                     x->parent->right = z;
                     z->parent = x->parent;
                 }
-                /*else
-                    cout << "There is no parent" << endl;*/
             }
             else
                 z->parent = 0;
@@ -310,8 +313,6 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
                     x->parent->right = z;
                     z->parent = x->parent;
                 }
-                /*else
-                    cout << "There is no parent" << endl;*/
             }
             else
             z->parent = 0;
@@ -394,8 +395,6 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
                     x->parent->right = y; // Set x parent to Y
                     y->parent = x->parent; // Set y parent to x's parent
                 }
-                /*else
-                    cout << "There is no parent" << endl;*/
             }
             else
                 y->parent = 0;
@@ -453,6 +452,11 @@ Node<T>* AvlTree<T>::trinode_restructure(Node<T>* x,
     return new Node<T>(-1);
 }
 
+
+/*
+Checks the left and right children of a node to see if they are balanced or not.
+If not it returns true for not balanced
+*/
 template <typename T>
 bool AvlTree<T>::unbalanced(Node<T>* current)
 {
@@ -485,7 +489,7 @@ bool AvlTree<T>::unbalanced(Node<T>* current)
     else
         return false;
 
-    difference = abs(difference);
+    difference = abs(difference); //just for extra make sureing ness it possitive
 
     if(difference > 1)
         return true;

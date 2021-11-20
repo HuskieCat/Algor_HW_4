@@ -3,12 +3,6 @@
 
 using namespace std;
 
-/*
-CPP of bst creates a binary search tree
-Author: Bradley Henderson
-*/
-
-/*Overload << operator to print*/
 template <typename T>
 ostream& operator<<(ostream& out, const BST<T>& currentNode)
 {
@@ -16,8 +10,6 @@ ostream& operator<<(ostream& out, const BST<T>& currentNode)
     return out;
 }
 
-
-/*In order recursive traversal of node tree*/
 template <typename T>
 void print(ostream& out, Node<T>* currentNode)
 {
@@ -32,7 +24,6 @@ void print(ostream& out, Node<T>* currentNode)
     return;
 }
 
-/*Inserts data as nodes based on size, bigger to the right smaller to the left*/
 template <typename T>
 void BST<T>::insert(T data)
 {
@@ -45,9 +36,9 @@ void BST<T>::insert(T data)
 
         while(true)
         {
-            localParent = current->parent;
+            /*localParent = current->parent;
             localLeft = current->left;
-            localRight = current->right;
+            localRight = current->right;*/
 
             if (data < current->data) //Travel Left
             {
@@ -83,7 +74,7 @@ void BST<T>::insert(T data)
             }
         }
 
-        while(current->parent != 0) //Fix height
+        while(current->parent != 0) //Add
         {
             int parentHeight = current->parent->height;
             int heightPlus = (current->height + 1);
@@ -104,7 +95,6 @@ void BST<T>::insert(T data)
     return;
 }
 
-/*Returns the height of a node*/
 template <typename T>
 int BST<T>::height(Node<T>* nodePTR)
 {
@@ -113,7 +103,6 @@ int BST<T>::height(Node<T>* nodePTR)
     return -1;
 }
 
-/*Recursivly deletes all the nodes in a tree*/
 template <typename T>
 void BST<T>::remove(Node<T>* nodePTR)
 {
